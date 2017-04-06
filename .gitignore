@@ -1,0 +1,8 @@
+# temp
+*~
+# Compiled Object files
+*.o
+# Executables
+*.ext
+*.out
+*.app

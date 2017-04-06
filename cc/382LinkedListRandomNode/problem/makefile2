@@ -1,0 +1,14 @@
+main: main.o linklist.o node.o
+	g++ -o main main.o linklist.o node.o -std=c++11
+
+main.o: main.cc LinkedList.h Node.h
+	g++ -c main.cc -o main.o -std=c++11
+	
+linklist.o: LinkedList.cc LinkedList.h Node.h
+	g++ -c LinkedList.cc -o linklist.o -std=c++11
+	
+node.o: Node.cc Node.h
+	g++ -c Node.cc -o node.o -std=c++11
+	
+clean:
+	rm -rf main node.o linklist.o main.o

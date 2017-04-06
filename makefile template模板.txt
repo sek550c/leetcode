@@ -1,0 +1,27 @@
+#Makefile file  
+DIR_INC = ./include # header files
+DIR_SRC = ./scr # source files 
+DIR_OBJ = ./obj # obj files
+DIR_BIN = ./bin # bin files
+DIR_3RD = ./3party # 3rd party header files
+DIR_LIB = ./lib # 3rd party lib file
+      
+SRC = $(wildcard ${DIR_SRC}/*.cc)  
+OBJ = $(patsubst %.cc,${DIR_OBJ}/%.o,$(notdir ${SRC}))  
+      
+TARGET = mian # build file name
+      
+BIN_TARGET = ${DIR_BIN}/${TARGET}  
+CC = g++  
+CXXFLAGS = -g -Wall -I${DIR_INC} -I${DIR_3RD}  
+LDFLAGS = -L${DIR_LIB}  
+LIBS= -lopencv_core -lopencv_highgui # using space if mult files
+      
+${BIN_TARGET} : ${OBJ}  
+$(CC) $(OBJ) -o $@ $(LDFLAGS) $(LIBS)  
+
+${DIR_OBJ}/%.O:${DIR_SRC}/%.cc  
+	$(CC) $(CXXFLAGS) -c $< -o $@  
+.phony:clean  
+clean:  
+	find ${DIR_OBJ} -name *.o -exec rm -rf {}\;  

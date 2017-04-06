@@ -1,0 +1,98 @@
+1.back tracking/DFS:
+	357
+2. XOR:
+	136
+	260
+	268
+3. hash table/dict:
+	1
+	13
+	136
+	167
+	169
+	217
+	242
+	260
+	350
+	387
+	409
+4. set:
+	217
+	242
+	260
+	349
+	383
+	409
+	500
+5. binary search:
+	167
+	268
+6. two pointer:
+	27
+	167
+	283
+	344
+	345
+	350
+	392
+7. list:
+	283
+8. string:
+	12
+	13
+	242
+	345
+	387
+	389
+	383
+	409
+	500
+9. sort:
+	169
+	242
+	347
+	350
+10. logic computation:
+	371
+11. random:
+	384
+12. class:
+	384
+11. hard to understand:
+	198
+	238
+	357
+12. math:
+	202
+	231
+ 	258
+ 	263
+ 	268
+ 	292
+ 	326
+ 	342
+ 	357
+13. find rules:
+ 	338
+14. bit computation:
+	191
+	231
+	342
+	405
+	461
+	476
+15. traversal:
+	27
+	121
+	198!
+	415
+16. add:
+	66!
+	67
+	258
+	415
+17. proof
+	342
+18. famous algorithm:
+	169 Boyer-Moore Majority Vote Algorithm
+	202 Floyd Cycle detection algorithm
