@@ -37,6 +37,37 @@ def twoSumMain():
 	target = 13
 	print("index:%s"%(twoSum_hash(nums, target)))
 	print("index:%s"%(twoSum_pointer(nums, target)))
+####################################################
+### YangHui Triangle ###
+def getYanghuiNum(row, col):
+	if row == col or col == 1: return 1
+	else: return getYanghuiNum(row-1,col-1)+getYanghuiNum(row-1,col)
+		
+def yanghuiTriRecursive(numRow):
+	res = []
+	for r in xrange(1,numRow+1):
+		row = []
+		for c in xrange(1,r+1):
+			row.append(getYanghuiNum(r,c))
+			#print(r,c)
+		res += [row]
+	return res
 
+def yanghuiTri(numRow):
+	res = [[1]]
+	for i in xrange(1, numRow):	
+		res += [map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])] # map compute (see map and lambda)
+	return res[:numRow] # in case numRow = 0
+	
+@start_finish
+def yanghuiTriMain():
+	numRow = 5
+	print("YangHui Triangle: %s"%(yanghuiTriRecursive(numRow)))
+	print("YangHui Triangle: %s"%(yanghuiTri(numRow)))
+
+	
+	
+	
 if __name__ == '__main__':
-	twoSumMain()
+	#twoSumMain()
+	yanghuiTriMain()
