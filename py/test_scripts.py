@@ -9,17 +9,16 @@ def start_finish(f):
         print("%s finished."%(f.__name__))
     return new_f
 
-### twoSum hash###
-def twoSum_hash(nums, target):
-	hash = {}
-	for idx, n in enumerate(nums):
-		find = target-n
-		if find in hash:
-			return [idx, hash[find]]
-		hash[n] = idx
+### 1,167 twoSum ###
+def twoSum_hash_my(nums, target):
+	hash = {} # store element:index
+	for i,n in enumerate(nums):
+		if target-n in hash: # found
+			return [i, hash[target-n]]
+		else: # not found, store
+			hash[n] = i
 	return []
-
-### twoSum pointer###
+				
 def twoSum_pointer(nums, target):
 	low, high = 0, len(nums)-1
 	while low < high:
@@ -31,43 +30,88 @@ def twoSum_pointer(nums, target):
 		else:
 			low = low+1
 	return []
+	
 @start_finish
 def twoSumMain():	
 	nums = [2, 7, 11, 15]
 	target = 13
-	print("index:%s"%(twoSum_hash(nums, target)))
+	print("index:%s"%(twoSum_hash_my(nums, target)))
 	print("index:%s"%(twoSum_pointer(nums, target)))
+	
 ####################################################
-### YangHui Triangle ###
-def getYanghuiNum(row, col):
+
+### 118 YangHui Triangle ###
+def getYanghuiNum_my(row,col):
 	if row == col or col == 1: return 1
-	else: return getYanghuiNum(row-1,col-1)+getYanghuiNum(row-1,col)
-		
-def yanghuiTriRecursive(numRow):
+	else: return getYanghuiNum_my(row-1, col-1)+getYanghuiNum_my(row-1, col)
+
+def yanghuiTriRe_my(numRow):
 	res = []
 	for r in xrange(1,numRow+1):
 		row = []
-		for c in xrange(1,r+1):
-			row.append(getYanghuiNum(r,c))
-			#print(r,c)
-		res += [row]
+		for c in xrange(1, r+1):
+			row += [getYanghuiNum_my(r, c)]
+		res.append(row)
 	return res
 
 def yanghuiTri(numRow):
 	res = [[1]]
-	for i in xrange(1, numRow):	
-		res += [map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1])] # map compute (see map and lambda)
-	return res[:numRow] # in case numRow = 0
+	for r in xrange(1,numRow):
+		res += [map(lambda x,y:x+y, res[-1]+[0], [0]+res[-1])] 
+	return res[:numRow] # in case numRow=0 
 	
 @start_finish
 def yanghuiTriMain():
 	numRow = 5
-	print("YangHui Triangle: %s"%(yanghuiTriRecursive(numRow)))
+	print("list aadd: %s"%([1]+[2]))
+	l1 = [1]
+	l1.append(2)
+	print("list append: %s"%(l1))
+	print("YangHui Triangle recursive: %s"%(yanghuiTriRe_my(numRow)))
 	print("YangHui Triangle: %s"%(yanghuiTri(numRow)))
+####################################################
 
+### 27 remove element ###
+def removeElement(nums, val):
+	new_i = 0
+	for i in xrange(len(nums)):
+		if nums[i] != val:
+			nums[new_i] = nums[i]
+			new_i += 1
+	return new_i
 	
+@start_finish
+def removeElementMain():
+	nums = [3, 2, 2, 3]
+	val = 3
+	print("new array:")
+	print(nums[:removeElement(nums, val)])
+####################################################
+
+### 26 remove duplicated element ###
+def removeDupElement(nums):
+	new_i = 0
+	for i in xrange(len(nums)):
+		if nums[new_i] == nums[i]:
+			nums[new_i] = nums[i]
+			i += 1
+		else:
+			nums[new_i] = nums[i]
+			new_i += 1
+			i += 1
+	return new_i
 	
-	
+@start_finish
+def removeDupElementMain():
+	nums = [0, 1, 2, 2, 3, 3, 3, 4]
+	print("new array:")
+	print(nums[:removeDupElement(nums)])
+####################################################
+"""
+
+"""
 if __name__ == '__main__':
 	#twoSumMain()
-	yanghuiTriMain()
+	#yanghuiTriMain()
+	#removeElementMain()
+	removeDupElementMain()
