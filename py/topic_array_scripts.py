@@ -41,11 +41,11 @@ def twoSumMain():
 ####################################################
 
 ### 118 YangHui Triangle ###
-def getYanghuiNum_my(row,col):
+def getYanghuiNum(row,col):
 	if row == col or col == 1: return 1
 	else: return getYanghuiNum_my(row-1, col-1)+getYanghuiNum_my(row-1, col)
 
-def yanghuiTriRe_my(numRow):
+def yanghuiTriRecursive(numRow):
 	res = []
 	for r in xrange(1,numRow+1):
 		row = []
@@ -112,11 +112,33 @@ def removeDupElementMain():
 	print("new array:")
 	print(nums[:removeDupElement(nums)])
 ####################################################
+
+### 35 search insert ###
+def searchInsert(nums, target):
+	for idx, n in enumerate(nums):
+		if n >= target:
+			return idx
+	return len(nums)
+
+@start_finish
+def searchInsertMain():
+	nums = [1, 3, 5, 6]
+	print(nums)
+	target = 0
+	print("target: %s, insert index: %s"%(target, searchInsert(nums, target)))
+	target = 2
+	print("target: %s, insert index: %s"%(target, searchInsert(nums, target)))
+	target = 3
+	print("target: %s, insert index: %s"%(target, searchInsert(nums, target)))
+	target = 7
+	print("target: %s, insert index: %s"%(target, searchInsert(nums, target)))
+####################################################
 """
 
 """
 if __name__ == '__main__':
 	#twoSumMain()
-	yanghuiTriMain()
+	# yanghuiTriMain()
 	#removeElementMain()
 	# removeDupElementMain()
+	searchInsertMain()	
