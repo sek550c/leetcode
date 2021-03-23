@@ -91,8 +91,7 @@ def removeElement(nums, val):
 def removeElementMain():
 	nums = [3, 2, 2, 3]
 	val = 3
-	print("new array:")
-	print(nums[:removeElement(nums, val)])
+	print("%s remove element %s: %s"%(nums, val, nums[:removeElement(nums, val)]))
 ####################################################
 
 ### 26 remove duplicated element ###
@@ -109,8 +108,9 @@ def removeDupElement(nums):
 @start_finish
 def removeDupElementMain():
 	nums = [0, 1, 2, 2, 3, 3, 3, 4]
-	print("new array:")
 	print(nums[:removeDupElement(nums)])
+	print("%s remove duplicated element: %s"%(nums, nums[:removeDupElement(nums)]))
+
 ####################################################
 
 ### 35 search insert ###
@@ -133,6 +133,61 @@ def searchInsertMain():
 	target = 7
 	print("target: %s, insert index: %s"%(target, searchInsert(nums, target)))
 ####################################################
+
+### 53 max subarray ###
+def maxSubArray(nums):
+	local_max = nums[0]
+	global_max = nums[0]
+	for n in nums[1:]:
+		local_max = max(n, local_max+n)
+		global_max = max(local_max, global_max)
+	return global_max
+
+@start_finish
+def maxSubArrayMain():
+	nums = [-2,1,-3,4,-1,2,1,-5,4]
+	print("%s has the largest sum: %s"%(nums, maxSubArray(nums)))
+	nums = [5,4,-1,7,8]
+	print("%s has the largest sum: %s"%(nums, maxSubArray(nums)))
+	nums = [1]
+	print("%s has the largest sum: %s"%(nums, maxSubArray(nums)))
+####################################################
+
+### 66 plus one ###
+def plusOne(nums):
+	for i in xrange(len(nums)-1, -1, -1):
+		if nums[i] == 9:
+			nums[i] = 0
+		else:
+			nums[i] += 1
+			return nums
+	nums.append(0)
+	nums[0] = 1
+	return nums
+
+def plusOne2(nums):
+	total = nums[0]
+	for n in nums[1:]:
+		total = 10*total+n
+	return [int(i) for i in str(total+1)]
+
+@start_finish
+def plusOneMain():
+	fun = plusOne2
+	nums = [1,2,3]
+	print(nums)
+	print("plus one: %s"%(fun(nums)))
+	nums = [0]
+	print(nums)
+	print("plus one: %s"%(fun(nums)))
+	nums = [1,9,9]
+	print(nums)
+	print("plus one: %s"%(fun(nums)))
+	nums = [9,9,9]
+	print(nums)
+	print("plus one: %s"%(fun(nums)))
+
+####################################################
 """
 
 """
@@ -141,4 +196,6 @@ if __name__ == '__main__':
 	# yanghuiTriMain()
 	#removeElementMain()
 	# removeDupElementMain()
-	searchInsertMain()	
+	# searchInsertMain()	
+	# maxSubArrayMain()
+	plusOneMain()
