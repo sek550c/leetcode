@@ -188,6 +188,49 @@ def plusOneMain():
 	print("plus one: %s"%(fun(nums)))
 
 ####################################################
+
+### 67 add binary ###
+def addBinaryDecimal(a, b):
+	if a == "0" or a == "": return b
+	if b == "0" or b == "": return a
+	return bin(int(a,2)+int(b,2))[2:]
+
+def addBinary(a, b):
+	if a == "0" or a == "": return b
+	if b == "0" or b == "": return a
+	if len(a) < len(b):
+		a = "0"*(len(b)-len(a))+a
+	if len(b) < len(a):
+		b = "0"*(len(a)-len(b))+b
+	# print(a,b)
+	i,j = len(a)-1, len(b)-1
+	carry = 0
+	res = ""
+	while i >= 0 and j >= 0:
+		# print(i,j)
+		tmp = str((int(a[i])+int(b[j])+carry)%2)
+		# print tmp
+		res = tmp+res
+		# print(res)
+		carry = (int(a[i])+int(b[j])+carry)/2
+		i = i-1
+		j = j-1
+	if carry > 0: return "1"+res
+	else: return res
+
+@start_finish
+def addBinaryMain():
+	fun = addBinaryDecimal
+	fun2 = addBinary
+	a = "111"
+	b = ""
+	print(a)
+	print(b)
+	print("add binary using decimal: %s"%(fun(a, b)))
+	print("add binary using force-brute: %s"%(fun2(a, b)))
+
+####################################################
+
 """
 
 """
@@ -198,4 +241,5 @@ if __name__ == '__main__':
 	# removeDupElementMain()
 	# searchInsertMain()	
 	# maxSubArrayMain()
-	plusOneMain()
+	# plusOneMain()
+	addBinaryMain()
