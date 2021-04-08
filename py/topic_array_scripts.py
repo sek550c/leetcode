@@ -317,6 +317,35 @@ def mergeMain():
 
 ####################################################
 
+####################################################
+### 121 best time to sell and buy ###
+"""
+Say you have an array for which the ith element is the price of a given stock on day i.
+If you were only permitted to complete at most one transaction (i.e., buy one and sell one share
+of the stock), design an algorithm to find the maximum profit.
+Input: [7,1,5,3,6,4]
+Output: 5
+"""
+def maxProfile(stock):
+	minPrice = stock[0]
+	maxProfile = 0
+	for s in stock:
+		minPrice = min(minPrice, s)
+		maxProfile = max(maxProfile, s-minPrice)
+	return maxProfile
+
+
+@start_finish
+def maxProfileMain():
+	fun = maxProfile
+	stock = [6,5,5,4,3]
+	print(stock)
+	print("max profile: %s"%(fun(stock)))
+	# print("merge2: %s"%(fun2(nums1, m, nums2, n)))
+	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
+####################################################
+
 """
 blabla
 """
@@ -330,4 +359,5 @@ if __name__ == '__main__':
 	# plusOneMain()
 	# addBinaryMain()
 	# deleteDulicatesMain()
-	mergeMain()
+	# mergeMain()
+	maxProfileMain()
