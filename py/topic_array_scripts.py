@@ -230,9 +230,95 @@ def addBinaryMain():
 	print("add binary using force-brute: %s"%(fun2(a, b)))
 
 ####################################################
+### 83 delete duplicates ###
+"""
+Given the head of a sorted linked list, delete all duplicates 
+such that each element appears only once. Return the linked 
+list sorted as well.
+"""
+#TODO
+def deleteDulicates(head):
+	for i, n in enumerate(head):
+		pass
+
+
+
+def deleteDulicates2(head):
+	pass
+
+
+
+@start_finish
+def deleteDulicatesMain():
+	fun = deleteDulicates
+	# fun2 = addBinary
+	nums = [0,1,2,3,3]
+	# b = ""
+	print(a)
+	# print(b)
+	print("delete dulicates: %s"%(fun(nums)))
+	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
+####################################################
+### 88 merge sorted array ###
+"""
+Given two sorted integer arrays nums1 and nums2, merge nums2 
+into nums1 as one sorted array.
+
+The number of elements initialized in nums1 and nums2 are m 
+and n respectively. You may assume that nums1 has a size 
+equal to m + n such that it has enough space to hold 
+additional elements from nums2.
+
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]。
+"""
+def merge(nums1, m, nums2, n):
+	mergesize = m+n-1
+	j = 0
+	# copy nums2 to nums1
+	for i in xrange(m, mergesize+1):
+		nums1[i] = nums2[j]
+		j = j+1
+	# print(nums1)
+	nums1 = sorted(nums1)
+	return nums1
+
+def merge2(nums1, m, nums2, n):
+	mergesize = m+n
+	i, j = m-1, n-1
+	new_i = mergesize-1
+	while i >=0 and j >= 0:
+		print(nums1[i],nums2[j])
+		if nums1[i] <= nums2[j]:
+			nums1[new_i] = nums2[j]
+			new_i = new_i-1
+			j = j-1
+		else:
+			nums1[new_i] = nums1[i]
+			new_i = new_i-1
+			i = i-1
+	return nums1
+
+
+@start_finish
+def mergeMain():
+	fun = merge
+	fun2 = merge2
+	nums1 = [1,1,7,0,0,0]
+	m = 3
+	nums2 = [2,5,6]
+	n = 3
+	print(nums1)
+	print(nums2)
+	print("merge: %s"%(fun(nums1, m, nums2, n)))
+	print("merge2: %s"%(fun2(nums1, m, nums2, n)))
+	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
+####################################################
 
 """
-
+blabla
 """
 if __name__ == '__main__':
 	#twoSumMain()
@@ -242,4 +328,6 @@ if __name__ == '__main__':
 	# searchInsertMain()	
 	# maxSubArrayMain()
 	# plusOneMain()
-	addBinaryMain()
+	# addBinaryMain()
+	# deleteDulicatesMain()
+	mergeMain()
