@@ -414,6 +414,39 @@ def containsDupMain():
 	print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
+
+
+####################################################
+### 219 contains duplicates 2 ###
+"""
+Given an array of integers and an integer k, find out whether there are two distinct indices i and j
+in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+"""
+def containsNearbyDup(nums, k):
+	hash_map = {}
+	for i, n in enumerate(nums):
+		if n in hash_map:
+			if abs(i-hash_map[n]) <= k:
+				return True
+			else:
+				hash_map[n] = i
+		else:
+			hash_map[n] = i
+	return False
+
+
+@start_finish
+def containsNearbyDupMain():
+	nums = [1,0,1,1]
+	k = 1
+	print(nums, k)
+	print("contains nearby duplicates?: %s"%(containsNearbyDup(nums, k)))
+	# print("contains duplicates?: %s"%(containsDup2(nums)))
+	# print("contains duplicates?: %s"%(containsDup3(nums)))
+
+####################################################
+
+
 """
 blabla
 """
@@ -430,4 +463,5 @@ if __name__ == '__main__':
 	# mergeMain()
 	# maxProfitMain()
 	# maxProfit122Main()
-	containsDupMain()
+	# containsDupMain()
+	containsNearbyDupMain()
