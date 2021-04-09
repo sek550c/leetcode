@@ -326,26 +326,94 @@ of the stock), design an algorithm to find the maximum profit.
 Input: [7,1,5,3,6,4]
 Output: 5
 """
-def maxProfile(stock):
-	minPrice = stock[0]
-	maxProfile = 0
-	for s in stock:
+def maxProfit(price):
+	minPrice = price[0]
+	maxProfit = 0
+	for s in price:
 		minPrice = min(minPrice, s)
-		maxProfile = max(maxProfile, s-minPrice)
-	return maxProfile
-
+		maxProfit = max(maxProfit, s-minPrice)
+	return maxProfit
 
 @start_finish
-def maxProfileMain():
-	fun = maxProfile
-	stock = [6,5,5,4,3]
-	print(stock)
-	print("max profile: %s"%(fun(stock)))
+def maxProfitMain():
+	fun = maxProfit
+	price = [6,5,5,4,3]
+	print(price)
+	print("max profile: %s"%(fun(price)))
 	# print("merge2: %s"%(fun2(nums1, m, nums2, n)))
 	# print("add binary using force-brute: %s"%(fun2(a, b)))
 
 ####################################################
 
+### 122 best time to sell and buy 2 ###
+"""
+Say you have an array for which the ith element is the price of a given stock on day i.
+Design an algorithm to find the maximum profit. You may complete as many transactions as you
+like (i.e., buy one and sell one share of the stock multiple times).
+Input: [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit =
+5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6),
+profit = 6-3 = 3.
+"""
+def maxProfit122(price):
+	profit = 0
+	for i in xrange(len(price)-1):
+		if price[i+1] > price[i]:
+			profit = profit+price[i+1]-price[i]
+	return profit
+
+
+@start_finish
+def maxProfit122Main():
+	fun = maxProfit122
+	price = [7,1,5,3,6,7]
+	print(price)
+	print("max profit: %s"%(fun(price)))
+	# print("merge2: %s"%(fun2(nums1, m, nums2, n)))
+	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
+####################################################
+### 217 contains duplicates ###
+"""
+Given an array of integers, find if the array contains any duplicates.
+Your function should return true if any value appears at least twice in the array, and it should
+return false if every element is distinct.
+"""
+def containsDup(nums):
+	nums = sorted(nums)
+	for i in xrange(len(nums)-1):
+		if nums[i+1] == nums[i]:
+			return True
+	return False
+
+def containsDup2(nums):
+	hash_map = {}
+	for n in nums:
+		if n in hash_map:
+			return True
+		else:
+			hash_map[n] = 1
+	return False
+
+def containsDup3(nums):
+	# print(set(nums))
+	# print(sum(set(nums)))
+	if sum(nums) == sum(set(nums)):
+		return False
+	else:
+		return True
+
+@start_finish
+def containsDupMain():
+	nums = [7,1,5,5,6,4]
+	print(nums)
+	print("contains duplicates?: %s"%(containsDup(nums)))
+	print("contains duplicates?: %s"%(containsDup2(nums)))
+	print("contains duplicates?: %s"%(containsDup3(nums)))
+
+####################################################
 """
 blabla
 """
@@ -360,4 +428,6 @@ if __name__ == '__main__':
 	# addBinaryMain()
 	# deleteDulicatesMain()
 	# mergeMain()
-	maxProfileMain()
+	# maxProfitMain()
+	# maxProfit122Main()
+	containsDupMain()
