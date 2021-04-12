@@ -445,15 +445,44 @@ def containsNearbyDupMain():
 	# print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
+### 283 move zeros ###
+"""
+Given an array nums, write a function to move all 0's to the end of it while maintaining the
+relative order of the non-zero elements.
+Input: [0,1,0,3,12]
+Output: [1,3,12,0,0]
+"""
+def moveZeros(nums):
+	cur, zero = 0, 0
+	while cur < len(nums):
+		if nums[cur] != 0:
+			if cur != zero:
+				nums[cur], nums[zero] = nums[zero], nums[cur] # swap
+				print(nums)
+			zero = zero+1
+		cur = cur+1
+	return nums
+	# return False
 
+
+@start_finish
+def moveZerosMain():
+	nums = [1,2,0,3,0,12]
+	# k = 1
+	print(nums)
+	print("move zeros: %s"%(moveZeros(nums)))
+	# print("contains duplicates?: %s"%(containsDup2(nums)))
+	# print("contains duplicates?: %s"%(containsDup3(nums)))
+
+####################################################
 
 """
 blabla
 """
 if __name__ == '__main__':
-	#twoSumMain()
+	# twoSumMain()
 	# yanghuiTriMain()
-	#removeElementMain()
+	# removeElementMain()
 	# removeDupElementMain()
 	# searchInsertMain()	
 	# maxSubArrayMain()
@@ -464,4 +493,5 @@ if __name__ == '__main__':
 	# maxProfitMain()
 	# maxProfit122Main()
 	# containsDupMain()
-	containsNearbyDupMain()
+	# containsNearbyDupMain()
+	moveZerosMain()
