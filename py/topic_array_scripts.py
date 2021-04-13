@@ -476,6 +476,59 @@ def moveZerosMain():
 
 ####################################################
 
+### 287 find duplicated num ###
+"""
+Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive),
+prove that at least one duplicate number must exist. Assume that there is only one duplicate
+number, find the duplicate one.
+Input: [1,3,4,2,2]
+Output: 2
+"""
+
+"""
+将此数组看成链表，通过快慢指针解题
+需2个循环，快指针走2步，慢指针走1步。第一个循环找到相遇点；第二个循环从头走和慢指针会在环入口，即重复元素处相遇
+具体解释参考：
+https://leetcode-cn.com/problems/find-the-duplicate-number/solution/kuai-man-zhi-zhen-de-jie-shi-cong-damien_undoxie-d/
+"""
+def findDup(nums):
+	slow = nums[0]
+	fast = nums[nums[0]]
+	while fast != slow: # 快慢指针相遇
+		slow = nums[slow]
+		fast = nums[nums[fast]]
+	#fast = slow
+	print(slow, fast)
+	dup = 0
+	while dup != slow: # 新指针和慢指针一起走，会在环入口相遇
+		dup = nums[dup]
+		slow = nums[slow]
+	return dup
+
+# binary search
+def findDup2(nums):
+	low, high = 0, len(nums)-1
+	while low < high:
+		mid, count = low+(high-low)/2, 0
+		for n in nums:
+			if n <= mid: count = count+1
+		if count > mid:
+			high = mid
+		else:
+			low = mid+1
+	return low
+
+@start_finish
+def findDupMain():
+	nums = [1,3,4,2,2]
+	# k = 1
+	print(nums)
+	print("find duplicate: %s"%(findDup(nums)))
+	print("find duplicate: %s"%(findDup2(nums)))
+	print("2>>1: %s"%(2>>1)) # 右移1位，相当于/2
+	print("2/2: %s"%(2/2))
+####################################################
+
 """
 blabla
 """
@@ -494,4 +547,5 @@ if __name__ == '__main__':
 	# maxProfit122Main()
 	# containsDupMain()
 	# containsNearbyDupMain()
-	moveZerosMain()
+	# moveZerosMain()
+	findDupMain()
