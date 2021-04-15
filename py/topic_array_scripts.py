@@ -529,6 +529,45 @@ def findDupMain():
 	print("2/2: %s"%(2/2))
 ####################################################
 
+### 532 k-diff pairs in an array ###
+"""
+Given an array of integers and an integer k, you need to find the number of unique k-diff pairs in
+the array. Here a k-diff pair is defined as an integer pair (i, j), where i and j are both numbers in
+the array and their absolute difference is k.
+Input: [3, 1, 4, 1, 5], k = 2
+Output: 2
+"""
+def findPairs(nums, k):
+	if k < 0 or len(nums) == 0:
+		return 0
+	count = 0
+	hash_table = {}
+	# 计数dict: 元素:个数
+	for n in nums:
+		hash_table[n] = hash_table.get(n, 0) + 1
+	# print(hash_table, len(hash_table))
+
+	for i in hash_table:
+		if k == 0 and hash_table[i] > 1: # k=0且有重复的数，计数
+			count = count+1
+			continue 
+		# print(i,k)
+		if k > 0 and hash_table.get(i+k, 0) > 0: # k>0且有相差k的数，计数
+			count = count+1
+	# print(hash_table)
+	return count
+
+
+@start_finish
+def findPairsMain():
+	nums = [3, 1, 4, 1, 5]
+	k = 2
+	print(nums)
+	print("k-diff pairs in an array: %s"%(findPairs(nums, k)))
+	# print("contains duplicates?: %s"%(containsDup2(nums)))
+	# print("contains duplicates?: %s"%(containsDup3(nums)))
+
+####################################################
 """
 blabla
 """
@@ -548,4 +587,5 @@ if __name__ == '__main__':
 	# containsDupMain()
 	# containsNearbyDupMain()
 	# moveZerosMain()
-	findDupMain()
+	# findDupMain()
+	findPairsMain()
