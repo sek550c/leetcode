@@ -568,6 +568,42 @@ def findPairsMain():
 	# print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
+
+### 11 container with most water ###
+"""
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n
+vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines,
+which together with x-axis forms a container, such that the container contains the most water.
+Input: [1,8,6,2,5,4,8,3,7]
+Output: 49
+"""
+def maxArea(height):
+	left, right = 0, len(height)-1
+	maxA = 0
+	while left < right:
+		w = right-left
+		h = 0
+		print(left, right)
+		if height[left] < height[right]:
+			h = height[left]
+			left = left+1
+		else:
+			h = height[right]
+			right = right-1
+		area = w*h
+		maxA = max(area, maxA)
+	return maxA
+
+
+@start_finish
+def maxAreaMain():
+	height = [1,8,6,2,5,4,8,3,7]
+	print(height)
+	print("max area: %s"%(maxArea(height)))
+	# print("contains duplicates?: %s"%(containsDup2(nums)))
+	# print("contains duplicates?: %s"%(containsDup3(nums)))
+
+####################################################
 """
 blabla
 """
@@ -588,4 +624,5 @@ if __name__ == '__main__':
 	# containsNearbyDupMain()
 	# moveZerosMain()
 	# findDupMain()
-	findPairsMain()
+	# findPairsMain()
+	maxAreaMain()
