@@ -227,7 +227,7 @@ def addBinaryMain():
 	print(a)
 	print(b)
 	print("add binary using decimal: %s"%(fun(a, b)))
-	print("add binary using force-brute: %s"%(fun2(a, b)))
+	print("add binary using brute-force: %s"%(fun2(a, b)))
 
 ####################################################
 ### 83 delete duplicates ###
@@ -257,7 +257,6 @@ def deleteDulicatesMain():
 	print(a)
 	# print(b)
 	print("delete dulicates: %s"%(fun(nums)))
-	# print("add binary using force-brute: %s"%(fun2(a, b)))
 
 ####################################################
 ### 88 merge sorted array ###
@@ -313,7 +312,6 @@ def mergeMain():
 	print(nums2)
 	print("merge: %s"%(fun(nums1, m, nums2, n)))
 	print("merge2: %s"%(fun2(nums1, m, nums2, n)))
-	# print("add binary using force-brute: %s"%(fun2(a, b)))
 
 ####################################################
 
@@ -340,8 +338,7 @@ def maxProfitMain():
 	price = [6,5,5,4,3]
 	print(price)
 	print("max profile: %s"%(fun(price)))
-	# print("merge2: %s"%(fun2(nums1, m, nums2, n)))
-	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
 
 ####################################################
 
@@ -371,8 +368,7 @@ def maxProfit122Main():
 	price = [7,1,5,3,6,7]
 	print(price)
 	print("max profit: %s"%(fun(price)))
-	# print("merge2: %s"%(fun2(nums1, m, nums2, n)))
-	# print("add binary using force-brute: %s"%(fun2(a, b)))
+
 
 ####################################################
 ### 217 contains duplicates ###
@@ -441,8 +437,6 @@ def containsNearbyDupMain():
 	k = 1
 	print(nums, k)
 	print("contains nearby duplicates?: %s"%(containsNearbyDup(nums, k)))
-	# print("contains duplicates?: %s"%(containsDup2(nums)))
-	# print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
 ### 283 move zeros ###
@@ -471,8 +465,6 @@ def moveZerosMain():
 	# k = 1
 	print(nums)
 	print("move zeros: %s"%(moveZeros(nums)))
-	# print("contains duplicates?: %s"%(containsDup2(nums)))
-	# print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
 
@@ -541,20 +533,20 @@ def findPairs(nums, k):
 	if k < 0 or len(nums) == 0:
 		return 0
 	count = 0
-	hash_table = {}
+	count_table = {}
 	# 计数dict: 元素:个数
 	for n in nums:
-		hash_table[n] = hash_table.get(n, 0) + 1
-	# print(hash_table, len(hash_table))
+		count_table[n] = count_table.get(n, 0) + 1
+	# print(count_table, len(count_table))
 
-	for i in hash_table:
-		if k == 0 and hash_table[i] > 1: # k=0且有重复的数，计数
+	for i in count_table:
+		if k == 0 and count_table[i] > 1: # k=0且有重复的数，计数
 			count = count+1
 			continue 
 		# print(i,k)
-		if k > 0 and hash_table.get(i+k, 0) > 0: # k>0且有相差k的数，计数
+		if k > 0 and count_table.get(i+k, 0) > 0: # k>0且有相差k的数，计数
 			count = count+1
-	# print(hash_table)
+	# print(count_table)
 	return count
 
 
@@ -564,8 +556,6 @@ def findPairsMain():
 	k = 2
 	print(nums)
 	print("k-diff pairs in an array: %s"%(findPairs(nums, k)))
-	# print("contains duplicates?: %s"%(containsDup2(nums)))
-	# print("contains duplicates?: %s"%(containsDup3(nums)))
 
 ####################################################
 
@@ -600,8 +590,67 @@ def maxAreaMain():
 	height = [1,8,6,2,5,4,8,3,7]
 	print(height)
 	print("max area: %s"%(maxArea(height)))
-	# print("contains duplicates?: %s"%(containsDup2(nums)))
-	# print("contains duplicates?: %s"%(containsDup3(nums)))
+
+
+####################################################
+
+### 15 3sum ###
+"""
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find
+all unique triplets in the array which gives the sum of zero.
+Given array nums = [-1, 0, 1, 2, -1, -4],
+A solution set is:
+[
+[-1, 0, 1],
+[-1, -1, 2]
+]
+"""
+def threeSum_bf(nums):
+	res = []
+	# nums = sorted(nums)
+	for i in xrange(len(nums)):
+		for j in xrange(i+1, len(nums)):
+			for k in xrange(j+1, len(nums)):
+				if nums[i]+nums[j]+nums[k] == 0:
+					res.append([nums[i], nums[j], nums[k]])
+	return res
+
+def threeSum_map(nums):
+	res = []
+	if len(nums) < 3:
+		return res
+	count_table = {} # 计数dict: 元素:个数
+	for n in nums:
+		count_table[n] = count_table.get(n, 0) + 1
+	# print(count_table)
+	uniqueNum = [] # 去重之后的数列
+	for k in count_table:
+		uniqueNum.append(k)
+	# print(uniqueNum)
+	uniqueNum = sorted(uniqueNum) # 对去重后的数列排序
+	print(uniqueNum)
+
+	for i in xrange(len(uniqueNum)): # 遍历去重后的数列
+		if uniqueNum[i]*3 == 0 and count_table[uniqueNum[i]] >= 3: # 如果重复3次以上的元素加起来为0，即0重复3次以上，返回结果
+			res.append([uniqueNum[i]], uniqueNum[i], uniqueNum[i])
+		for j in xrange(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
+			if uniqueNum[i]*2 + uniqueNum[j] == 0 and count_table[uniqueNum[i]] >= 2: # 如果重复2次以上的i元素+当前j元素为0，返回结果
+				res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j]])
+			if uniqueNum[j]*2 + uniqueNum[i] == 0 and count_table[uniqueNum[j]] >= 2: # 如果重复2次以上的j元素+当前i元素为0，返回结果
+				res.append([uniqueNum[i], uniqueNum[j], uniqueNum[j]])
+			c = 0 - uniqueNum[j] - uniqueNum[i] # 固定了2个元素，若找到c元素使得：i元素+j元素+c为0，则返回结果
+			if c > uniqueNum[j] and count_table.get(c, 0) >= 1: # 需保证c在元素i和元素j之后且存在
+				res.append([uniqueNum[i], uniqueNum[j], c])
+	return res
+
+
+@start_finish
+def threeSumMain():
+	nums = [-1,0,1,2,-1,-4]
+	print(nums)
+	# print("3 sum brute-force: %s"%(threeSum_bf(nums)))
+	print("3 sum map: %s"%(threeSum_map(nums)))
+
 
 ####################################################
 """
@@ -625,4 +674,5 @@ if __name__ == '__main__':
 	# moveZerosMain()
 	# findDupMain()
 	# findPairsMain()
-	maxAreaMain()
+	# maxAreaMain()
+	threeSumMain()
