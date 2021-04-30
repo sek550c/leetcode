@@ -632,7 +632,7 @@ def threeSum_map(nums):
 
     for i in xrange(len(uniqueNum)): # 遍历去重后的数列
         if uniqueNum[i]*3 == 0 and count_table[uniqueNum[i]] >= 3: # 如果重复3次以上的元素加起来为0，即0重复3次以上，返回结果
-            res.append([uniqueNum[i]], uniqueNum[i], uniqueNum[i])
+            res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i]])
         for j in xrange(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
             if uniqueNum[i]*2 + uniqueNum[j] == 0 and count_table[uniqueNum[i]] >= 2: # 如果重复2次以上的i元素+当前j元素为0，返回结果
                 res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j]])
@@ -695,6 +695,90 @@ def threeSumClosestMain():
     print("3 sum closest: %s"%(threeSum_closest(nums, target)))
 ####################################################
 
+### 18 4sum ###
+"""
+Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums
+such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of
+target.
+Note:
+The solution set must not contain duplicate quadruplets.
+Example:
+Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
+A solution set is:
+[
+[-1, 0, 0, 1],
+[-2, -1, 1, 2],
+[-2, 0, 0, 2]
+]
+"""
+
+
+def fourSum_map(nums, target):
+    print(nums, target) # testcase
+    res = []
+    if len(nums) < 4:
+        return res
+    count_table = {} # 计数dict: 元素:个数
+    for n in nums:
+        count_table[n] = count_table.get(n, 0) + 1
+    # print(count_table)
+    uniqueNum = [] # 去重之后的数列
+    for x in count_table:
+        uniqueNum.append(x)
+    # print(uniqueNum)
+    uniqueNum = sorted(uniqueNum) # 对去重后的数列排序
+    print(uniqueNum)
+
+    for i in xrange(len(uniqueNum)): # 遍历去重后的数列
+        if uniqueNum[i]*4 == target and count_table[uniqueNum[i]] >= 4: # 如果重复4次以上的元素加起来为0，即0重复4次以上，返回结果
+            res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i], uniqueNum[i]])
+            # print("4i")
+
+        for j in xrange(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
+            if uniqueNum[i]*3 + uniqueNum[j] == target and count_table[uniqueNum[i]] >= 3: # 如果重复3次以上的i元素+当前j元素为0，返回结果
+                res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i], uniqueNum[j]])
+                # print("3i,j")
+            if uniqueNum[j]*3 + uniqueNum[i] == target and count_table[uniqueNum[j]] >= 3: # 如果重复3次以上的j元素+当前i元素为0，返回结果
+                res.append([uniqueNum[i], uniqueNum[j], uniqueNum[j], uniqueNum[j]])
+                # print("i,3j")
+            # 如果重复2次以上的j元素+重复2次以上i元素为0，返回结果
+            if uniqueNum[i]*2 + uniqueNum[j]*2 == target and count_table[uniqueNum[i]] >= 2 and count_table[uniqueNum[j]] >= 2: 
+                res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j], uniqueNum[j]])
+                # print("2i,2j")
+
+            for k in xrange(j+1, len(uniqueNum)): # 固定了i元素及j元素，遍历j+1之后的元素，注意是从j+1开始
+                # 如果重复2次以上的i元素+当前j元素+k元素为0，返回结果
+                if uniqueNum[i]*2 + uniqueNum[j] + uniqueNum[k] == target and count_table[uniqueNum[i]] >= 2:
+                    res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j], uniqueNum[k]])
+                    # print("2i,j,k")
+                # 如果重复2次以上的j元素+当前i元素+k元素为0，返回结果
+                if uniqueNum[j]*2 + uniqueNum[i] + uniqueNum[k] == target and count_table[uniqueNum[j]] >= 2:
+                    res.append([uniqueNum[i], uniqueNum[j], uniqueNum[j], uniqueNum[k]])
+                    # print("i,2j,k")
+                # 如果重复2次以上的k元素+当前j元素+k元素为0，返回结果
+                if uniqueNum[k]*2 + uniqueNum[j] + uniqueNum[i] == target and count_table[uniqueNum[k]] >= 2:
+                    res.append([uniqueNum[i], uniqueNum[j], uniqueNum[k], uniqueNum[k]])
+                    # print("i,j,2k")
+
+                c = target - uniqueNum[i] - uniqueNum[j] - uniqueNum[k] # 固定了3个元素，若找到c元素使得：i元素+j元素+c为0，则返回结果
+                if c > uniqueNum[k] and count_table.get(c, 0) >= 1: # 需保证c在元素k之后且存在
+                    res.append([uniqueNum[i], uniqueNum[j], uniqueNum[k], c])
+                    # print("i,j,k,c")
+    return res
+
+
+@start_finish
+def fourSumMain():
+    # nums = [1, 0, -1, 0, -2, 2]
+    # testcase
+    nums = [-2,-1,-1,1,1,2,2]
+    target = 0
+    # nums = [2,2,2,2,2]
+    # target = 8
+    print(nums)
+    # print("4 sum brute-force: %s"%(threeSum_bf(nums)))
+    print("4 sum map: %s"%(fourSum_map(nums, target)))
+####################################################
 """
 blabla
 """
@@ -718,4 +802,5 @@ if __name__ == '__main__':
     # findPairsMain()
     # maxAreaMain()
     # threeSumMain()
-    threeSumClosestMain()
+    # threeSumClosestMain()
+    fourSumMain()
