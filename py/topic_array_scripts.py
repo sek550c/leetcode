@@ -779,6 +779,38 @@ def fourSumMain():
     # print("4 sum brute-force: %s"%(threeSum_bf(nums)))
     print("4 sum map: %s"%(fourSum_map(nums, target)))
 ####################################################
+
+### 22 Generate Parentheses ###
+"""
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+"""
+def generateParenthesisDFS(res, parentheses, leftRemain, rightRemain):
+    if leftRemain > rightRemain or leftRemain < 0 or rightRemain < 0: # 回溯条件
+        return
+    if leftRemain == 0 and rightRemain == 0: # 返回结果, 注意是and
+        res.append(parentheses)
+        return res
+    generateParenthesisDFS(res, parentheses+"(", leftRemain-1, rightRemain)
+    generateParenthesisDFS(res, parentheses+")", leftRemain, rightRemain-1)
+
+def generateParenthesis(n):
+    res = []
+    generateParenthesisDFS(res, "", n, n)
+    return res
+
+
+@start_finish
+def generateParenthesisMain():
+    for n in xrange(1, 5):
+        print("generate n = %s valid Parenthesis: %s"%(n, generateParenthesis(n)))
+####################################################
+
+
+
 """
 blabla
 """
@@ -803,4 +835,6 @@ if __name__ == '__main__':
     # maxAreaMain()
     # threeSumMain()
     # threeSumClosestMain()
-    fourSumMain()
+    # fourSumMain()
+    # generateParenthesisMain()
+    combinationSumMain()
