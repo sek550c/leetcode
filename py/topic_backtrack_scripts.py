@@ -35,7 +35,7 @@ def generateParenthesis(n):
 
 @start_finish
 def generateParenthesisMain():
-    for n in xrange(1, 5):
+    for n in range(1, 5):
         print("generate n = %s valid Parenthesis: %s"%(n, generateParenthesis(n)))
 ####################################################
 
@@ -64,7 +64,7 @@ def combinationSumDFS(nums, target, begin, path, res):
         res.append(path)
         return
     # 当余数target！=0，我们继续探索数组中的元素
-    for i in xrange(begin, len(nums)): # 注意是从begin开始，表示可以重复使用元素
+    for i in range(begin, len(nums)): # 注意是从begin开始，表示可以重复使用元素
         # 如果加上元素后超过目标值，则表示此元素不符合条件，返回
         if target - nums[i] < 0:
             return
@@ -95,5 +95,5 @@ def combinationSumMain():
 blabla
 """
 if __name__ == '__main__':
-    # generateParenthesisMain()
-    combinationSumMain()
+    generateParenthesisMain()
+    # combinationSumMain()

@@ -43,27 +43,27 @@ def twoSumMain():
 ### 118 YangHui Triangle ###
 def getYanghuiNum(row,col):
     if row == col or col == 1: return 1
-    else: return getYanghuiNum_my(row-1, col-1)+getYanghuiNum_my(row-1, col)
+    else: return getYanghuiNum(row-1, col-1)+getYanghuiNum(row-1, col)
 
 def yanghuiTriRecursive(numRow):
     res = []
-    for r in xrange(1,numRow+1):
+    for r in range(1,numRow+1):
         row = []
-        for c in xrange(1, r+1):
-            row += [getYanghuiNum_my(r, c)]
+        for c in range(1, r+1):
+            row += [getYanghuiNum(r, c)]
         res.append(row)
     return res
 
 def yanghuiTri(numRow):
-    pascal = [[1]*(i+1) for i in xrange(numRow)]
-    for i in xrange(2, numRow):
-        for j in xrange(1,i):
+    pascal = [[1]*(i+1) for i in range(numRow)]
+    for i in range(2, numRow):
+        for j in range(1,i):
             pascal[i][j] = pascal[i-1][j-1]+pascal[i-1][j]
     return pascal
 
 def yanghuiTri_map(numRow):
     res = [[1]]
-    for r in xrange(1,numRow):
+    for r in range(1,numRow):
         res += [map(lambda x,y:x+y, res[-1]+[0], [0]+res[-1])] 
     return res[:numRow] # in case numRow=0 
     
@@ -74,14 +74,14 @@ def yanghuiTriMain():
     l1 = [1]
     l1.append(2)
     print("list append: %s"%(l1))
-    print("YangHui Triangle recursive: %s"%(yanghuiTriRe_my(numRow)))
+    print("YangHui Triangle recursive: %s"%(yanghuiTriRecursive(numRow)))
     print("YangHui Triangle: %s"%(yanghuiTri(numRow)))
 ####################################################
 
 ### 27 remove element ###
 def removeElement(nums, val):
     new_i = 0
-    for i in xrange(len(nums)):
+    for i in range(len(nums)):
         if nums[i] != val:
             nums[new_i] = nums[i]
             new_i += 1
@@ -98,7 +98,7 @@ def removeElementMain():
 def removeDupElement(nums):
     if len(nums) < 2: return 1
     new_i = 1
-    for i in xrange(1,len(nums)):
+    for i in range(1,len(nums)):
         if nums[i] != nums[i-1]:
             nums[new_i] = nums[i]
             new_i += 1
@@ -155,7 +155,7 @@ def maxSubArrayMain():
 
 ### 66 plus one ###
 def plusOne(nums):
-    for i in xrange(len(nums)-1, -1, -1):
+    for i in range(len(nums)-1, -1, -1):
         if nums[i] == 9:
             nums[i] = 0
         else:
@@ -254,7 +254,7 @@ def deleteDulicatesMain():
     # fun2 = addBinary
     nums = [0,1,2,3,3]
     # b = ""
-    print(a)
+    # print(a)
     # print(b)
     print("delete dulicates: %s"%(fun(nums)))
 
@@ -276,7 +276,7 @@ def merge(nums1, m, nums2, n):
     mergesize = m+n-1
     j = 0
     # copy nums2 to nums1
-    for i in xrange(m, mergesize+1):
+    for i in range(m, mergesize+1):
         nums1[i] = nums2[j]
         j = j+1
     # print(nums1)
@@ -356,7 +356,7 @@ profit = 6-3 = 3.
 """
 def maxProfit122(price):
     profit = 0
-    for i in xrange(len(price)-1):
+    for i in range(len(price)-1):
         if price[i+1] > price[i]:
             profit = profit+price[i+1]-price[i]
     return profit
@@ -379,7 +379,7 @@ return false if every element is distinct.
 """
 def containsDup(nums):
     nums = sorted(nums)
-    for i in xrange(len(nums)-1):
+    for i in range(len(nums)-1):
         if nums[i+1] == nums[i]:
             return True
     return False
@@ -608,9 +608,9 @@ A solution set is:
 def threeSum_bf(nums):
     res = []
     # nums = sorted(nums)
-    for i in xrange(len(nums)):
-        for j in xrange(i+1, len(nums)):
-            for k in xrange(j+1, len(nums)):
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            for k in range(j+1, len(nums)):
                 if nums[i]+nums[j]+nums[k] == 0:
                     res.append([nums[i], nums[j], nums[k]])
     return res
@@ -630,10 +630,10 @@ def threeSum_map(nums):
     uniqueNum = sorted(uniqueNum) # 对去重后的数列排序
     print(uniqueNum)
 
-    for i in xrange(len(uniqueNum)): # 遍历去重后的数列
+    for i in range(len(uniqueNum)): # 遍历去重后的数列
         if uniqueNum[i]*3 == 0 and count_table[uniqueNum[i]] >= 3: # 如果重复3次以上的元素加起来为0，即0重复3次以上，返回结果
             res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i]])
-        for j in xrange(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
+        for j in range(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
             if uniqueNum[i]*2 + uniqueNum[j] == 0 and count_table[uniqueNum[i]] >= 2: # 如果重复2次以上的i元素+当前j元素为0，返回结果
                 res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j]])
             if uniqueNum[j]*2 + uniqueNum[i] == 0 and count_table[uniqueNum[j]] >= 2: # 如果重复2次以上的j元素+当前i元素为0，返回结果
@@ -668,7 +668,7 @@ def threeSum_closest(nums, target):
     # print(diff)
     # print(nums)
     if n >= 3: 
-        for i in xrange(n-2): # 固定一个数，在使用双指针夹逼结果
+        for i in range(n-2): # 固定一个数，在使用双指针夹逼结果
             j = i+1 
             k = n-1
             while j < k:
@@ -729,12 +729,12 @@ def fourSum_map(nums, target):
     uniqueNum = sorted(uniqueNum) # 对去重后的数列排序
     print(uniqueNum)
 
-    for i in xrange(len(uniqueNum)): # 遍历去重后的数列
+    for i in range(len(uniqueNum)): # 遍历去重后的数列
         if uniqueNum[i]*4 == target and count_table[uniqueNum[i]] >= 4: # 如果重复4次以上的元素加起来为0，即0重复4次以上，返回结果
             res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i], uniqueNum[i]])
             # print("4i")
 
-        for j in xrange(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
+        for j in range(i+1, len(uniqueNum)): # 固定了i元素，遍历i之后的元素，注意是从i+1开始
             if uniqueNum[i]*3 + uniqueNum[j] == target and count_table[uniqueNum[i]] >= 3: # 如果重复3次以上的i元素+当前j元素为0，返回结果
                 res.append([uniqueNum[i], uniqueNum[i], uniqueNum[i], uniqueNum[j]])
                 # print("3i,j")
@@ -746,7 +746,7 @@ def fourSum_map(nums, target):
                 res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j], uniqueNum[j]])
                 # print("2i,2j")
 
-            for k in xrange(j+1, len(uniqueNum)): # 固定了i元素及j元素，遍历j+1之后的元素，注意是从j+1开始
+            for k in range(j+1, len(uniqueNum)): # 固定了i元素及j元素，遍历j+1之后的元素，注意是从j+1开始
                 # 如果重复2次以上的i元素+当前j元素+k元素为0，返回结果
                 if uniqueNum[i]*2 + uniqueNum[j] + uniqueNum[k] == target and count_table[uniqueNum[i]] >= 2:
                     res.append([uniqueNum[i], uniqueNum[i], uniqueNum[j], uniqueNum[k]])
@@ -805,7 +805,7 @@ def generateParenthesis(n):
 
 @start_finish
 def generateParenthesisMain():
-    for n in xrange(1, 5):
+    for n in range(1, 5):
         print("generate n = %s valid Parenthesis: %s"%(n, generateParenthesis(n)))
 ####################################################
 
@@ -815,26 +815,26 @@ def generateParenthesisMain():
 blabla
 """
 if __name__ == '__main__':
-    # twoSumMain()
-    # yanghuiTriMain()
-    # removeElementMain()
-    # removeDupElementMain()
-    # searchInsertMain()    
-    # maxSubArrayMain()
-    # plusOneMain()
-    # addBinaryMain()
-    # deleteDulicatesMain()
-    # mergeMain()
-    # maxProfitMain()
-    # maxProfit122Main()
-    # containsDupMain()
-    # containsNearbyDupMain()
-    # moveZerosMain()
-    # findDupMain()
-    # findPairsMain()
-    # maxAreaMain()
-    # threeSumMain()
-    # threeSumClosestMain()
-    # fourSumMain()
-    # generateParenthesisMain()
-    combinationSumMain()
+    twoSumMain()
+    yanghuiTriMain()
+    removeElementMain()
+    removeDupElementMain()
+    searchInsertMain()    
+    maxSubArrayMain()
+    plusOneMain()
+    addBinaryMain()
+    deleteDulicatesMain()
+    mergeMain()
+    maxProfitMain()
+    maxProfit122Main()
+    containsDupMain()
+    containsNearbyDupMain()
+    moveZerosMain()
+    findDupMain()
+    findPairsMain()
+    maxAreaMain()
+    threeSumMain()
+    threeSumClosestMain()
+    fourSumMain()
+    generateParenthesisMain()
+    
