@@ -56,9 +56,33 @@ A solution set is:
 [2,2,3]
 ]
 """
+
+def combinationSumDFS(nums, target, begin, path, res):
+    path = path[:] # python2, 只拷贝一层，对于对象中含对象，需要使用深拷贝deepcopy()
+    # 递归终止条件，当余数target==0时，我们找到了这样一组答案res
+    if target == 0:
+        res.append(path)
+        return
+    # 当余数target！=0，我们继续探索数组中的元素
+    for i in xrange(begin, len(nums)): # 注意是从begin开始，表示可以重复使用元素
+        # 如果加上元素后超过目标值，则表示此元素不符合条件，返回
+        if target - nums[i] < 0:
+            return
+        # 如果没超过目标值，进入下一层
+        path.append(nums[i])
+        combinationSumDFS(nums, target-nums[i], i, path, res)
+        # 下一层返回上来的，表示此节点不符合条件，舍去
+        path.pop()
+
 def combinationSum(nums, target):
+    if len(nums) == 0:
+        return res
     res = []
+    path = []
+    nums = sorted(nums)
+    combinationSumDFS(nums, target, 0, path, res)
     return res
+
 
 
 @start_finish
@@ -71,5 +95,5 @@ def combinationSumMain():
 blabla
 """
 if __name__ == '__main__':
-    generateParenthesisMain()
+    # generateParenthesisMain()
     combinationSumMain()
