@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import time
+
 # decorator
 def start_finish(f):
     def new_f(*args, **kwargs):
         print("%s starting..."%(f.__name__))
+        start_time = time.perf_counter()
         f(*args, **kwargs)
-        print("%s finished."%(f.__name__))
+        end_time = time.perf_counter()
+        print("%s finished. %f s elapsed."%(f.__name__, end_time - start_time))
     return new_f
 
 ####################################################
